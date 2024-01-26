@@ -1,374 +1,417 @@
 <!DOCTYPE html>
 <!-- saved from url=(0037)https://syphist.com/pmd/wms/?advanced -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		
-		<title>Wonder Mail S Generator</title>
-		<meta name="description" content="Generates Wonder Mail S codes for the game Pokemon Mystery Dungeon: Explorers of Sky.">
-		
-		<meta name="application-name" content="Wonder Mail S Generator">
-		<meta name="application-url" content="http://apointlessplace.net/wms/wmgenerate.html">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-		<link rel="stylesheet" type="text/css" href="./Wonder Mail S Generator_files/wmtools.css">
-    <script async="" src="./Wonder Mail S Generator_files/analytics.js"></script>
-		<script type="text/javascript" src="./Wonder Mail S Generator_files/wmutils.js"></script>
-		<script type="text/javascript" src="./Wonder Mail S Generator_files/wm.js"></script>
-		<script type="text/javascript" src="./Wonder Mail S Generator_files/wmgenerate.js"></script>
+    <title>Wonder Mail S Generator</title>
+    <meta
+      name="description"
+      content="Generates Wonder Mail S codes for the game Pokemon Mystery Dungeon: Explorers of Sky."
+    />
 
-		<script type="text/javascript" src="./Wonder Mail S Generator_files/sky_dungeon.js"></script>
-		<script type="text/javascript" src="./Wonder Mail S Generator_files/sky_item.js"></script>
-		<script type="text/javascript" src="./Wonder Mail S Generator_files/sky_poke.js"></script>
-	<script type="text/javascript" async="" src="./Wonder Mail S Generator_files/ga.js"></script><script type="text/javascript">
-function rtcScript() {
-    document.oncontextmenu = null;
-    document.onselectstart = null;
-    document.onmousedown = null;
-    document.onclick = null;
-    document.oncopy = null;
-    document.oncut = null;
-    var elements = document.getElementsByTagName('*');
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].oncontextmenu = null;
-        elements[i].onselectstart = null;
-        elements[i].onmousedown = null;
-        elements[i].oncopy = null;
-        elements[i].oncut = null;
-    }
-    function preventShareThis() {
-        document.getSelection = window.getSelection = function() {
-            return {isCollapsed: true};
+    <meta name="application-name" content="Wonder Mail S Generator" />
+    <meta name="application-url" content="http://apointlessplace.net/wms/wmgenerate.html" />
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="./style/wmtools.css" />
+    <script async="" src="./script/analytics.js"></script>
+    <script type="text/javascript" src="./script/wmutils.js"></script>
+    <script type="text/javascript" src="./script/wm.js"></script>
+    <script type="text/javascript" src="./script/wmgenerate.js"></script>
+
+    <script type="text/javascript" src="./script/sky_dungeon.js"></script>
+    <script type="text/javascript" src="./script/sky_item.js"></script>
+    <script type="text/javascript" src="./script/sky_poke.js"></script>
+    <script type="text/javascript" async="" src="./script/ga.js"></script>
+    <script type="text/javascript">
+      function rtcScript() {
+        document.oncontextmenu = null;
+        document.onselectstart = null;
+        document.onmousedown = null;
+        document.onclick = null;
+        document.oncopy = null;
+        document.oncut = null;
+        var elements = document.getElementsByTagName("*");
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].oncontextmenu = null;
+          elements[i].onselectstart = null;
+          elements[i].onmousedown = null;
+          elements[i].oncopy = null;
+          elements[i].oncut = null;
         }
-    }
-    var scripts = document.getElementsByTagName('script');
-    for (var i = 0; i < scripts.length; i++) {
-        if (scripts[i].src.indexOf('w.sharethis.com') > -1) {
+        function preventShareThis() {
+          document.getSelection = window.getSelection = function () {
+            return { isCollapsed: true };
+          };
+        }
+        var scripts = document.getElementsByTagName("script");
+        for (var i = 0; i < scripts.length; i++) {
+          if (scripts[i].src.indexOf("w.sharethis.com") > -1) {
             preventShareThis();
+          }
         }
-    }
-    if (typeof Tynt != 'undefined') {
-        Tynt = null;
-    }
-}
-rtcScript();
-setInterval(rtcScript, 2000);</script><style>
-* {
-    -webkit-user-select: auto !important; /* injected by RightToCopy */
-}</style><script type="text/javascript" async="" src="./Wonder Mail S Generator_files/ga.js(1)"></script></head>
-	<body onload="runOnLoad()">
-		<script type="text/javascript">
-		/**
-		 * The purpose of this function is to properly initialize the generator.
-		 * It will run on load by default unless the user is using IE6.
-		 */
-		function runInitialize() {
-			WMSGen.advanced = (document.location.search.indexOf('advanced') != -1);
-			WMSGen.setup($('genForm'));
-		}
-		
-		// Run initialize by default.
-		runOnLoad = runInitialize;
-		
-		// This is used in wm.js.
-		function getOption(name) {
-			switch(name) {
-				default:
-					return false;
-				break;
-			}
-		}
-		
-		// Don't allow option setting on this page.
-		function setOption(name, value) {
-			return false;
-		}
-		
-		var generatedThisSession = false;
-		var iFlavorText = 0;
-		function doGenerate() {
-			if (Number(document.getElementById("genAmount").value) + Number(document.getElementById("flavorText").value) > 16777216) {
-				window.alert("Cannot go past 16777216 codes");
-				return;
-			}
-			var amount = document.getElementById("genAmount").value;
-			var pattern = document.getElementById("genPattern").value;
-			var repeatBufferLength = Number(document.getElementById("genTolerance").value) + 1;
-			var comparison = document.getElementById("genSimilar").value.replace(/\s/g, "");
-			var keys = {};
-			keys["C"] = {X: 2, Y: 0};
-			keys["F"] = {X: 5, Y: 0};
-			keys["H"] = {X: 7, Y: 0};
-			keys["J"] = {X: 9, Y: 0};
-			keys["K"] = {X: 10, Y: 0};
-			keys["M"] = {X: 12, Y: 0};
-			keys["N"] = {X: 0, Y: 1};
-			keys["P"] = {X: 2, Y: 1};
-			keys["Q"] = {X: 3, Y: 1};
-			keys["R"] = {X: 4, Y: 1};
-			keys["S"] = {X: 5, Y: 1};
-			keys["T"] = {X: 6, Y: 1};
-			keys["W"] = {X: 9, Y: 1};
-			keys["X"] = {X: 10, Y: 1};
-			keys["Y"] = {X: 11, Y: 1};
-			keys["0"] = {X: 0, Y: 2};
-			keys["1"] = {X: 1, Y: 2};
-			keys["2"] = {X: 2, Y: 2};
-			keys["3"] = {X: 3, Y: 2};
-			keys["4"] = {X: 4, Y: 2};
-			keys["5"] = {X: 5, Y: 2};
-			keys["6"] = {X: 6, Y: 2};
-			keys["7"] = {X: 7, Y: 2};
-			keys["8"] = {X: 8, Y: 2};
-			keys["9"] = {X: 9, Y: 2};
-			keys["@"] = {X: 10, Y: 2};
-			keys["&"] = {X: 12, Y: 2};
-			keys["-"] = {X: 0, Y: 3};
-			keys["#"] = {X: 2, Y: 3};
-			keys["%"] = {X: 4, Y: 3};
-			keys["+"] = {X: 8, Y: 3};
-			keys["="] = {X: 10, Y: 3};
-			// Check for errors
-			var errors = WMSGen.verify();
-			if(errors.length == 0) {
-				var codes = [];
-				for (var i = 0; i < amount; i++) {
-					iFlavorText = i;
-					code = WMSGen.generate();
-					var trimmed = code.replace(/\s/g, "");
-					if (pattern !== "" && !trimmed.includes(pattern)) continue;
-					if (i % 10000 === 0) {
-						console.log(i);
-					}
-					var c = 0;
-					var d = 0;
-					var repeatBuffer = [trimmed[0]];
-					var similarity = 0;
-					if (comparison !== "" && trimmed[0] === comparison[0]) similarity++;
-					for (var j = 1; j < trimmed.length; j++) {
-						//count repeated chars
-						if (repeatBuffer.includes(trimmed[j])) c++;
-						else {
-							repeatBuffer.push(trimmed[j]);
-							if (repeatBuffer.length > repeatBufferLength) repeatBuffer.shift();
-						}
-						//calculate distance between chars
-						d += Math.sqrt(Math.pow(keys[trimmed[j]].X - keys[trimmed[j - 1]].X, 2) + Math.pow(keys[trimmed[j]].Y - keys[trimmed[j - 1]].Y, 2));
-						//count similarity to comparson
-						if (comparison !== "" && trimmed[j] === comparison[j]) similarity++;
-					}
-					if (c >= document.getElementById("minRepeats").value) {
-						codes.push({code: code, repeats: c, distance: Math.floor(d), matches: similarity});
-					}
-				}
-				function compareRepeatedChars(code1, code2) {
-					if (code1.repeats > code2.repeats) return -1;
-					else if (code1.repeats === code2.repeats) {
-						if (code1.distance < code2.distance) return -1;
-						else if (code1.distance === code2.distance) return 0;
-						else return 1;
-					}
-					else return 1;
-				}
-				function compareDistance(code1, code2) {
-					if (code1.distance < code2.distance) return -1;
-					else if (code1.distance === code2.distance) {
-						if (code1.repeats > code2.repeats) return -1;
-						else if (code1.repeats === code2.repeats) return 0;
-						else return 1;
-					}
-					else return 1;
-				}
-				
-				var compareFunction = compareRepeatedChars;
-				if (document.getElementById("genPriority").value === "distance") compareFunction = compareDistance;
-				if (codes.length === 0) {
-					window.alert("No codes found!");
-					return;
-				}
-				codes.sort(function(code1, code2) {
-					if (code1.matches > code2.matches) return -1;
-					else if (code1.matches === code2.matches) return compareFunction(code1, code2);
-					else return 1;
-				});
-				console.log("Top 10,000 codes from best to worst:")
-				console.log(codes.slice(0, 10000).map(
-					function(code) {
-						return {
-							code: code.code.replace("\n", " "),
-							repeats: code.repeats,
-							distance: code.distance,
-							matches: code.matches
-						}
-					}
-				));
+        if (typeof Tynt != "undefined") {
+          Tynt = null;
+        }
+      }
+      rtcScript();
+      setInterval(rtcScript, 2000);
+    </script>
+    <style>
+      * {
+        -webkit-user-select: auto !important; /* injected by RightToCopy */
+      }
+    </style>
+    <script type="text/javascript" async="" src="./script/ga.js"></script>
+  </head>
+  <body onload="runOnLoad()">
+    <script type="text/javascript">
+      /**
+       * The purpose of this function is to properly initialize the generator.
+       * It will run on load by default unless the user is using IE6.
+       */
+      function runInitialize() {
+        WMSGen.advanced = document.location.search.indexOf("advanced") != -1;
+        WMSGen.setup($("genForm"));
+      }
 
-				$('outputbox').value = codes[0].code;
-				
-				// See how many people are actually using this thing...
-				if(typeof(_gaq) != 'undefined' && !generatedThisSession && (navigator.onLine || typeof(navigator.onLine) != 'boolean')) {
-					if(typeof(_gaq.push) != 'undefined') {
-						_gaq.push(['_trackPageview', "/wms/generator/generated"]);
-						generatedThisSession = true;
-					}
-				}
-			}
-			else {
-				var errorStr = "";
-				for(var i = 0; i < errors.length; ++i) {
-					errorStr += " * " + errors[i] + "\n";
-				}
-				$('outputbox').value = errorStr;
-			}
-		}
-		</script>
-		<h1>Wonder Mail S Generator (v0.91 beta)</h1>
+      // Run initialize by default.
+      runOnLoad = runInitialize;
 
-		<p>This webpage generates Wonder Mail S codes for "Pokemon Mystery Dungeon: Explorers of Sky".</p>
+      // This is used in wm.js.
+      function getOption(name) {
+        switch (name) {
+          default:
+            return false;
+            break;
+        }
+      }
 
-		<p>
-			Note that this is a <span class="beta-marker">BETA version</span> and will probably stay that way forever (due to some serious mysteries and lack of time to research).
-		</p>
+      // Don't allow option setting on this page.
+      function setOption(name, value) {
+        return false;
+      }
 
-		<p>
-			<span class="beta-marker">DISCLAIMER:</span> I did not make this page, I have only archived it and posted it on my website now that <a href="http://apointlessplace.net/">apointlessplace.net</a> is no longer up.</p>
-		
-		<!-- To enable advanced mode, add the ?advanced=1 query parameter. -->
-		<p id="advancedOff" style="display: block;"><strong>Advanced mode disabled</strong>: you are not using advanced mode. Add ?advanced to the end of the URL bar to enable advanced mode.</p>
-		<p id="advancedMode" style="display: none;"><strong>Advanced mode enabled</strong>: you are using advanced mode. Not all dungeons &amp; clients will generate valid codes.</p>
-		
-		<form id="genForm">
-			<fieldset>
-				<legend>Generate code</legend>
-				
-				<p>
-					<label for="missionTypeBox">Mission type:</label>
-					<select name="missionTypeBox" id="missionTypeBox" onchange="WMSGen.fillSubTypeList(); WMSGen.update()" style="display: inline;"></select>
-					
-					<span id="subType" style="display: none"><select name="missionSubTypeBox" id="missionSubTypeBox" onchange="WMSGen.update()"></select></span>
-				</p>
+      var generatedThisSession = false;
+      var iFlavorText = 0;
+      function doGenerate() {
+        if (
+          Number(document.getElementById("genAmount").value) + Number(document.getElementById("flavorText").value) >
+          16777216
+        ) {
+          window.alert("Cannot go past 16777216 codes");
+          return;
+        }
+        var amount = document.getElementById("genAmount").value;
+        var pattern = document.getElementById("genPattern").value;
+        var repeatBufferLength = Number(document.getElementById("genTolerance").value) + 1;
+        var comparison = document.getElementById("genSimilar").value.replace(/\s/g, "");
+        var keys = {};
+        keys["C"] = { X: 2, Y: 0 };
+        keys["F"] = { X: 5, Y: 0 };
+        keys["H"] = { X: 7, Y: 0 };
+        keys["J"] = { X: 9, Y: 0 };
+        keys["K"] = { X: 10, Y: 0 };
+        keys["M"] = { X: 12, Y: 0 };
+        keys["N"] = { X: 0, Y: 1 };
+        keys["P"] = { X: 2, Y: 1 };
+        keys["Q"] = { X: 3, Y: 1 };
+        keys["R"] = { X: 4, Y: 1 };
+        keys["S"] = { X: 5, Y: 1 };
+        keys["T"] = { X: 6, Y: 1 };
+        keys["W"] = { X: 9, Y: 1 };
+        keys["X"] = { X: 10, Y: 1 };
+        keys["Y"] = { X: 11, Y: 1 };
+        keys["0"] = { X: 0, Y: 2 };
+        keys["1"] = { X: 1, Y: 2 };
+        keys["2"] = { X: 2, Y: 2 };
+        keys["3"] = { X: 3, Y: 2 };
+        keys["4"] = { X: 4, Y: 2 };
+        keys["5"] = { X: 5, Y: 2 };
+        keys["6"] = { X: 6, Y: 2 };
+        keys["7"] = { X: 7, Y: 2 };
+        keys["8"] = { X: 8, Y: 2 };
+        keys["9"] = { X: 9, Y: 2 };
+        keys["@"] = { X: 10, Y: 2 };
+        keys["&"] = { X: 12, Y: 2 };
+        keys["-"] = { X: 0, Y: 3 };
+        keys["#"] = { X: 2, Y: 3 };
+        keys["%"] = { X: 4, Y: 3 };
+        keys["+"] = { X: 8, Y: 3 };
+        keys["="] = { X: 10, Y: 3 };
+        // Check for errors
+        var errors = WMSGen.verify();
+        if (errors.length == 0) {
+          var codes = [];
+          for (var i = 0; i < amount; i++) {
+            iFlavorText = i;
+            code = WMSGen.generate();
+            var trimmed = code.replace(/\s/g, "");
+            if (pattern !== "" && !trimmed.includes(pattern)) continue;
+            if (i % 10000 === 0) {
+              console.log(i);
+            }
+            var c = 0;
+            var d = 0;
+            var repeatBuffer = [trimmed[0]];
+            var similarity = 0;
+            if (comparison !== "" && trimmed[0] === comparison[0]) similarity++;
+            for (var j = 1; j < trimmed.length; j++) {
+              //count repeated chars
+              if (repeatBuffer.includes(trimmed[j])) c++;
+              else {
+                repeatBuffer.push(trimmed[j]);
+                if (repeatBuffer.length > repeatBufferLength) repeatBuffer.shift();
+              }
+              //calculate distance between chars
+              d += Math.sqrt(
+                Math.pow(keys[trimmed[j]].X - keys[trimmed[j - 1]].X, 2) +
+                  Math.pow(keys[trimmed[j]].Y - keys[trimmed[j - 1]].Y, 2)
+              );
+              //count similarity to comparson
+              if (comparison !== "" && trimmed[j] === comparison[j]) similarity++;
+            }
+            if (c >= document.getElementById("minRepeats").value) {
+              codes.push({ code: code, repeats: c, distance: Math.floor(d), matches: similarity });
+            }
+          }
+          function compareRepeatedChars(code1, code2) {
+            if (code1.repeats > code2.repeats) return -1;
+            else if (code1.repeats === code2.repeats) {
+              if (code1.distance < code2.distance) return -1;
+              else if (code1.distance === code2.distance) return 0;
+              else return 1;
+            } else return 1;
+          }
+          function compareDistance(code1, code2) {
+            if (code1.distance < code2.distance) return -1;
+            else if (code1.distance === code2.distance) {
+              if (code1.repeats > code2.repeats) return -1;
+              else if (code1.repeats === code2.repeats) return 0;
+              else return 1;
+            } else return 1;
+          }
 
-				<p>
-					<label for="dungeonBox">Dungeon:</label>
-					<select id="dungeonBox" name="dungeonBox" style="display: inline;"></select>
-				</p>
-				
-				<p>
-					<label for="floor">Floor:</label>
-					<input id="floor" name="floor" type="text" size="4" value="1">
-				</p>
-				
-				<p>
-					<label for="clientBox">Client:</label>
-					<select name="clientBox" id="clientBox" style="display: inline;"></select>
-					female: <input type="checkbox" name="clientF" id="clientF" value="600">
-				</p>
+          var compareFunction = compareRepeatedChars;
+          if (document.getElementById("genPriority").value === "distance") compareFunction = compareDistance;
+          if (codes.length === 0) {
+            window.alert("No codes found!");
+            return;
+          }
+          codes.sort(function (code1, code2) {
+            if (code1.matches > code2.matches) return -1;
+            else if (code1.matches === code2.matches) return compareFunction(code1, code2);
+            else return 1;
+          });
+          console.log("Top 10,000 codes from best to worst:");
+          console.log(
+            codes.slice(0, 10000).map(function (code) {
+              return {
+                code: code.code.replace("\n", " "),
+                repeats: code.repeats,
+                distance: code.distance,
+                matches: code.matches,
+              };
+            })
+          );
 
-				<p>
-					<label for="targetBox">Target:</label>
-					<select name="targetBox" id="targetBox" style="display: inline;" disabled=""></select>
-					female: <input type="checkbox" name="targetF" id="targetF" value="600" disabled="">
-				</p>
-				
-				<p id="target2" style="display: none;">
-					<label for="target2Box">Extra target:</label>
-					<select name="target2Box" id="target2Box" disabled=""></select> female: <input type="checkbox" name="target2F" id="target2F" value="600">
-				</p>
-				
-				<p>
-					<label for="targetItemBox">Target item:</label>
-					<select name="targetItemBox" id="targetItemBox" disabled="" style="display: inline;"></select>
-				</p>
-				
-				<p>
-					<label for="rewardTypeBox">Reward type:</label>
-					<select name="rewardTypeBox" id="rewardTypeBox" onchange="WMSGen.update()">
-						<option value="0">Cash</option>
-						<option value="1">Cash + ??? (Reward item)</option>
-						<option value="2">Item</option>
-						<option value="3" selected="selected">Item + ??? (Random)</option>
-						<option value="4">??? (Reward item)</option>
-						<option value="5">??? (Egg)</option>
-						<option value="6">??? (Client joins)</option>
-					</select>
-				</p>
-				
-				<p>
-					<label for="rewardItemBox">Reward item:</label>
-					<select name="rewardItemBox" id="rewardItemBox" style="display: inline;"></select>
-				</p>
-				
-				<div id="advancedModeOnlyStuff" style="display: none;">
-					<p>
-						<label for="flavorText">Flavor text:</label>
-						<input id="flavorText" name="flavorText" type="number" value="" min="0" max="16777215"> (leave empty for 0, otherwise this will be used as the starting value)
-					</p>
-					<p>
-						<label for="genAmount">Amount:</label>
-						<input id="genAmount" name="genAmount" type="number" value="100000" min="1"> (the higher the number the better codes you get but the longer it will take to compute)
-					</p>
-					<p>
-						<label for="minRepeats">Minimum repeats:</label>
-						<input id="minRepeats" name="minRepeats" type="number" value="0" min="0"> (codes with less repeats than the specified amount will be discarded to save RAM)
-					</p>					
-					<p>
-						<label for="specialFloor">Special floor:</label>
-						<input id="specialFloor" name="specialFloor" type="number" value="" min="0"> (leave empty for auto; overrides even forced special floors!)
-					</p>
-					<p>
-						<label for="genPriority">Priority mode:</label>
-						<select id="genPriority" name="genPriority" value="repeats">
-							<option value="repeats">Repeated characters</option>
-							<option value="distance">Distance between characters</option>
-						</select>
-					</p>
-					<p>
-						<label for="genTolerance">Characters between repeats:</label>
-						<input id="genTolerance" name="genTolerance" type="number" value="0" min="0">
-						(maximum unique characters allowed in between repeats)
-					</p>
-					<p>
-						<label for="genPattern">Pattern:</label>
-						<input id="genPattern" name="genPattern" type="text" value="">
-						(only codes with the entered pattern (without spaces) included in them will be shown)
-					</p>
-					<p>
-						<label for="genSimilar">Compare with:</label>
-						<textarea id="genSimilar" rows="2" cols="20"></textarea>
-						(codes will be sorted by how many matching characters they have to the entered code)
-					</p>
-				</div>
-				<p>
-					<label for="useEUswap">Region:</label>
-					<select id="genRegion" name="genRegion" value="US">
-						<option value="us">US</option>
-						<option value="eu">EU</option>
-						<option value="jp">JP</option>
-					</select>
-				</p>
-				<p>
-					<label for="generateBtn">Generate:</label>
-					<button id="generateBtn" type="button" onclick="doGenerate(); return false">Generate</button>
-				</p>
-			</fieldset>
-		</form>
+          $("outputbox").value = codes[0].code;
 
-		<fieldset>
-			<legend>Generated code</legend>
-			<textarea id="outputbox" rows="3" cols="60" readonly="readonly"></textarea>
-			<p>Check your console for more codes! (ctrl+shift+i usually)</p>
-		</fieldset>
-		
-		<!-- analytics -->
-		<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-5727513-1']);
-		_gaq.push(['_trackPageview']);
+          // See how many people are actually using this thing...
+          if (
+            typeof _gaq != "undefined" &&
+            !generatedThisSession &&
+            (navigator.onLine || typeof navigator.onLine != "boolean")
+          ) {
+            if (typeof _gaq.push != "undefined") {
+              _gaq.push(["_trackPageview", "/wms/generator/generated"]);
+              generatedThisSession = true;
+            }
+          }
+        } else {
+          var errorStr = "";
+          for (var i = 0; i < errors.length; ++i) {
+            errorStr += " * " + errors[i] + "\n";
+          }
+          $("outputbox").value = errorStr;
+        }
+      }
+    </script>
+    <h1>Wonder Mail S Generator (v0.91 beta)</h1>
 
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-		})();
-		</script>
-	
-<p><a href="https://syphist.com/pmd/">&lt; Back</a></p>
+    <p>This webpage generates Wonder Mail S codes for "Pokemon Mystery Dungeon: Explorers of Sky".</p>
 
-</body></html>
+    <p>
+      Note that this is a <span class="beta-marker">BETA version</span> and will probably stay that way forever (due to
+      some serious mysteries and lack of time to research).
+    </p>
+
+    <p>
+      <span class="beta-marker">DISCLAIMER:</span> I did not make this page, I have only archived it and posted it on my
+      website now that <a href="http://apointlessplace.net/">apointlessplace.net</a> is no longer up.
+    </p>
+
+    <!-- To enable advanced mode, add the ?advanced=1 query parameter. -->
+    <p id="advancedOff" style="display: block">
+      <strong>Advanced mode disabled</strong>: you are not using advanced mode. Add ?advanced to the end of the URL bar
+      to enable advanced mode.
+    </p>
+    <p id="advancedMode" style="display: none">
+      <strong>Advanced mode enabled</strong>: you are using advanced mode. Not all dungeons &amp; clients will generate
+      valid codes.
+    </p>
+
+    <form id="genForm">
+      <fieldset>
+        <legend>Generate code</legend>
+
+        <p>
+          <label for="missionTypeBox">Mission type:</label>
+          <select
+            name="missionTypeBox"
+            id="missionTypeBox"
+            onchange="WMSGen.fillSubTypeList(); WMSGen.update()"
+            style="display: inline"
+          ></select>
+
+          <span id="subType" style="display: none"
+            ><select name="missionSubTypeBox" id="missionSubTypeBox" onchange="WMSGen.update()"></select
+          ></span>
+        </p>
+
+        <p>
+          <label for="dungeonBox">Dungeon:</label>
+          <select id="dungeonBox" name="dungeonBox" style="display: inline"></select>
+        </p>
+
+        <p>
+          <label for="floor">Floor:</label>
+          <input id="floor" name="floor" type="text" size="4" value="1" />
+        </p>
+
+        <p>
+          <label for="clientBox">Client:</label>
+          <select name="clientBox" id="clientBox" style="display: inline"></select>
+          female: <input type="checkbox" name="clientF" id="clientF" value="600" />
+        </p>
+
+        <p>
+          <label for="targetBox">Target:</label>
+          <select name="targetBox" id="targetBox" style="display: inline" disabled=""></select>
+          female: <input type="checkbox" name="targetF" id="targetF" value="600" disabled="" />
+        </p>
+
+        <p id="target2" style="display: none">
+          <label for="target2Box">Extra target:</label>
+          <select name="target2Box" id="target2Box" disabled=""></select>
+          female: <input type="checkbox" name="target2F" id="target2F" value="600" />
+        </p>
+
+        <p>
+          <label for="targetItemBox">Target item:</label>
+          <select name="targetItemBox" id="targetItemBox" disabled="" style="display: inline"></select>
+        </p>
+
+        <p>
+          <label for="rewardTypeBox">Reward type:</label>
+          <select name="rewardTypeBox" id="rewardTypeBox" onchange="WMSGen.update()">
+            <option value="0">Cash</option>
+            <option value="1">Cash + ??? (Reward item)</option>
+            <option value="2">Item</option>
+            <option value="3" selected="selected">Item + ??? (Random)</option>
+            <option value="4">??? (Reward item)</option>
+            <option value="5">??? (Egg)</option>
+            <option value="6">??? (Client joins)</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="rewardItemBox">Reward item:</label>
+          <select name="rewardItemBox" id="rewardItemBox" style="display: inline"></select>
+        </p>
+
+        <div id="advancedModeOnlyStuff" style="display: none">
+          <p>
+            <label for="flavorText">Flavor text:</label>
+            <input id="flavorText" name="flavorText" type="number" value="" min="0" max="16777215" /> (leave empty for
+            0, otherwise this will be used as the starting value)
+          </p>
+          <p>
+            <label for="genAmount">Amount:</label>
+            <input id="genAmount" name="genAmount" type="number" value="100000" min="1" /> (the higher the number the
+            better codes you get but the longer it will take to compute)
+          </p>
+          <p>
+            <label for="minRepeats">Minimum repeats:</label>
+            <input id="minRepeats" name="minRepeats" type="number" value="0" min="0" /> (codes with less repeats than
+            the specified amount will be discarded to save RAM)
+          </p>
+          <p>
+            <label for="specialFloor">Special floor:</label>
+            <input id="specialFloor" name="specialFloor" type="number" value="" min="0" /> (leave empty for auto;
+            overrides even forced special floors!)
+          </p>
+          <p>
+            <label for="genPriority">Priority mode:</label>
+            <select id="genPriority" name="genPriority" value="repeats">
+              <option value="repeats">Repeated characters</option>
+              <option value="distance">Distance between characters</option>
+            </select>
+          </p>
+          <p>
+            <label for="genTolerance">Characters between repeats:</label>
+            <input id="genTolerance" name="genTolerance" type="number" value="0" min="0" />
+            (maximum unique characters allowed in between repeats)
+          </p>
+          <p>
+            <label for="genPattern">Pattern:</label>
+            <input id="genPattern" name="genPattern" type="text" value="" />
+            (only codes with the entered pattern (without spaces) included in them will be shown)
+          </p>
+          <p>
+            <label for="genSimilar">Compare with:</label>
+            <textarea id="genSimilar" rows="2" cols="20"></textarea>
+            (codes will be sorted by how many matching characters they have to the entered code)
+          </p>
+        </div>
+        <p>
+          <label for="useEUswap">Region:</label>
+          <select id="genRegion" name="genRegion" value="US">
+            <option value="us">US</option>
+            <option value="eu">EU</option>
+            <option value="jp">JP</option>
+          </select>
+        </p>
+        <p>
+          <label for="generateBtn">Generate:</label>
+          <button id="generateBtn" type="button" onclick="doGenerate(); return false">Generate</button>
+        </p>
+      </fieldset>
+    </form>
+
+    <fieldset>
+      <legend>Generated code</legend>
+      <textarea id="outputbox" rows="3" cols="60" readonly="readonly"></textarea>
+      <p>Check your console for more codes! (ctrl+shift+i usually)</p>
+    </fieldset>
+
+    <!-- analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(["_setAccount", "UA-5727513-1"]);
+      _gaq.push(["_trackPageview"]);
+
+      (function () {
+        var ga = document.createElement("script");
+        ga.type = "text/javascript";
+        ga.async = true;
+        ga.src =
+          ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+        (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(ga);
+      })();
+    </script>
+
+    <p><a href="https://syphist.com/pmd/">&lt; Back</a></p>
+  </body>
+</html>
