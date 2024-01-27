@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0037)https://syphist.com/pmd/wms/?advanced -->
-<html>
+<html data-theme="light">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -12,9 +12,11 @@
 
     <meta name="application-name" content="Wonder Mail S Generator" />
     <meta name="application-url" content="http://apointlessplace.net/wms/wmgenerate.html" />
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
 
+    <link rel="stylesheet" type="text/css" href="./style/simple.css" />
     <link rel="stylesheet" type="text/css" href="./style/wmtools.css" />
+    <meta name="color-scheme" content="light" />
+
     <script async="" src="./script/analytics.js"></script>
     <script type="text/javascript" src="./script/wmutils.js"></script>
     <script type="text/javascript" src="./script/wm.js"></script>
@@ -238,35 +240,25 @@
         }
       }
     </script>
-    <h1>Wonder Mail S Generator (v0.91 beta)</h1>
+    <h1>Wonder Mail S Generator (v1.6)</h1>
 
     <p>This webpage generates Wonder Mail S codes for "Pokemon Mystery Dungeon: Explorers of Sky".</p>
 
-    <p>
-      Note that this is a <span class="beta-marker">BETA version</span> and will probably stay that way forever (due to
-      some serious mysteries and lack of time to research).
-    </p>
-
-    <p>
-      <span class="beta-marker">DISCLAIMER:</span> I did not make this page, I have only archived it and posted it on my
-      website now that <a href="http://apointlessplace.net/">apointlessplace.net</a> is no longer up.
-    </p>
-
     <!-- To enable advanced mode, add the ?advanced=1 query parameter. -->
     <p id="advancedOff" style="display: block">
-      <strong>Advanced mode disabled</strong>: you are not using advanced mode. Add ?advanced to the end of the URL bar
-      to enable advanced mode.
+      <strong>Advanced Mode disabled</strong>: you are not using Advanced Mode.
+      <a href="?advanced">Click here to enable Advanced Mode.</a>
     </p>
     <p id="advancedMode" style="display: none">
-      <strong>Advanced mode enabled</strong>: you are using advanced mode. Not all dungeons &amp; clients will generate
-      valid codes.
+      <strong>Advanced Mode enabled</strong>: you are using Advanced Mode. Not all dungeons &amp; clients will generate
+      valid codes. <a href="?">Click here to return to Normal Mode.</a>
     </p>
 
     <form id="genForm">
       <fieldset>
         <legend>Generate code</legend>
 
-        <p>
+        <div>
           <label for="missionTypeBox">Mission type:</label>
           <select
             name="missionTypeBox"
@@ -278,42 +270,57 @@
           <span id="subType" style="display: none"
             ><select name="missionSubTypeBox" id="missionSubTypeBox" onchange="WMSGen.update()"></select
           ></span>
-        </p>
+        </div>
 
-        <p>
+        <div>
           <label for="dungeonBox">Dungeon:</label>
-          <select id="dungeonBox" name="dungeonBox" style="display: inline"></select>
-        </p>
+          <select class="itemSelect" id="dungeonBox" name="dungeonBox"></select>
+        </div>
 
-        <p>
+        <div>
           <label for="floor">Floor:</label>
           <input id="floor" name="floor" type="text" size="4" value="1" />
-        </p>
+        </div>
 
-        <p>
+        <div>
           <label for="clientBox">Client:</label>
-          <select name="clientBox" id="clientBox" style="display: inline"></select>
-          female: <input type="checkbox" name="clientF" id="clientF" value="600" />
-        </p>
+          <span class="monContainer">
+            <select class="monSelect" name="clientBox" id="clientBox"></select>
+            <select class="genderSelect" name="clientF" id="clientF">
+              <option value="0">Male</option>
+              <option value="600">Female</option>
+            </select>
+          </span>
+        </div>
 
-        <p>
+        <div>
           <label for="targetBox">Target:</label>
-          <select name="targetBox" id="targetBox" style="display: inline" disabled=""></select>
-          female: <input type="checkbox" name="targetF" id="targetF" value="600" disabled="" />
-        </p>
+          <span class="monContainer">
+            <select class="monSelect" name="targetBox" id="targetBox" disabled=""></select>
+            <select class="genderSelect" name="targetF" id="targetF" disabled="">
+              <option value="0">Male</option>
+              <option value="600">Female</option>
+            </select>
+          </span>
+        </div>
 
-        <p id="target2" style="display: none">
+        <div id="target2" style="display: none">
           <label for="target2Box">Extra target:</label>
-          <select name="target2Box" id="target2Box" disabled=""></select>
-          female: <input type="checkbox" name="target2F" id="target2F" value="600" />
-        </p>
+          <span class="monContainer">
+            <select class="monSelect" name="target2Box" id="target2Box" disabled=""></select>
+            <select class="genderSelect" name="target2F" id="target2F">
+              <option value="0">Male</option>
+              <option value="600">Female</option>
+            </select>
+          </span>
+        </div>
 
-        <p>
+        <div>
           <label for="targetItemBox">Target item:</label>
-          <select name="targetItemBox" id="targetItemBox" disabled="" style="display: inline"></select>
-        </p>
+          <select class="itemSelect" name="targetItemBox" id="targetItemBox" disabled=""></select>
+        </div>
 
-        <p>
+        <div>
           <label for="rewardTypeBox">Reward type:</label>
           <select name="rewardTypeBox" id="rewardTypeBox" onchange="WMSGen.update()">
             <option value="0">Cash</option>
@@ -324,69 +331,69 @@
             <option value="5">??? (Egg)</option>
             <option value="6">??? (Client joins)</option>
           </select>
-        </p>
+        </div>
 
-        <p>
+        <div>
           <label for="rewardItemBox">Reward item:</label>
-          <select name="rewardItemBox" id="rewardItemBox" style="display: inline"></select>
-        </p>
+          <select class="itemSelect" name="rewardItemBox" id="rewardItemBox"></select>
+        </div>
 
         <div id="advancedModeOnlyStuff" style="display: none">
-          <p>
+          <div>
             <label for="flavorText">Flavor text:</label>
-            <input id="flavorText" name="flavorText" type="number" value="" min="0" max="16777215" /> (leave empty for
-            0, otherwise this will be used as the starting value)
-          </p>
-          <p>
+            <input id="flavorText" name="flavorText" type="number" value="" min="0" max="16777215" />
+            <p>Leave empty for 0; otherwise this will be used as the starting value.</p>
+          </div>
+          <div>
             <label for="genAmount">Amount:</label>
-            <input id="genAmount" name="genAmount" type="number" value="100000" min="1" /> (the higher the number the
-            better codes you get but the longer it will take to compute)
-          </p>
-          <p>
+            <input id="genAmount" name="genAmount" type="number" value="100000" min="1" />
+            <p>The higher the number, the better codes you get, but the longer it will take to compute.</p>
+          </div>
+          <div>
             <label for="minRepeats">Minimum repeats:</label>
-            <input id="minRepeats" name="minRepeats" type="number" value="0" min="0" /> (codes with less repeats than
-            the specified amount will be discarded to save RAM)
-          </p>
-          <p>
+            <input id="minRepeats" name="minRepeats" type="number" value="0" min="0" />
+            <p>Codes with less repeats than the specified amount will be discarded to save RAM.</p>
+          </div>
+          <div>
             <label for="specialFloor">Special floor:</label>
-            <input id="specialFloor" name="specialFloor" type="number" value="" min="0" /> (leave empty for auto;
-            overrides even forced special floors!)
-          </p>
-          <p>
+            <input id="specialFloor" name="specialFloor" type="number" value="" min="0" />
+            <p>Leave empty for auto; overrides even forced special floors!</p>
+          </div>
+          <div>
             <label for="genPriority">Priority mode:</label>
             <select id="genPriority" name="genPriority" value="repeats">
               <option value="repeats">Repeated characters</option>
               <option value="distance">Distance between characters</option>
             </select>
-          </p>
-          <p>
+          </div>
+          <div>
             <label for="genTolerance">Characters between repeats:</label>
             <input id="genTolerance" name="genTolerance" type="number" value="0" min="0" />
-            (maximum unique characters allowed in between repeats)
-          </p>
-          <p>
+            <p>Maximum unique characters allowed in between repeats.</p>
+          </div>
+          <div>
             <label for="genPattern">Pattern:</label>
             <input id="genPattern" name="genPattern" type="text" value="" />
-            (only codes with the entered pattern (without spaces) included in them will be shown)
-          </p>
-          <p>
+            <p>Only codes with the entered pattern (without spaces) included in them will be shown.</p>
+          </div>
+          <div>
             <label for="genSimilar">Compare with:</label>
             <textarea id="genSimilar" rows="2" cols="20"></textarea>
-            (codes will be sorted by how many matching characters they have to the entered code)
-          </p>
+            <p>Codes will be sorted by how many matching characters they have to the entered code.</p>
+          </div>
         </div>
-        <p>
+        <div>
           <label for="useEUswap">Region:</label>
           <select id="genRegion" name="genRegion" value="US">
             <option value="us">US</option>
             <option value="eu">EU</option>
             <option value="jp">JP</option>
           </select>
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="generateBtn">Generate:</label>
           <button id="generateBtn" type="button" onclick="doGenerate(); return false">Generate</button>
-        </p>
+        </div>
       </fieldset>
     </form>
 
@@ -411,7 +418,5 @@
         (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(ga);
       })();
     </script>
-
-    <p><a href="https://syphist.com/pmd/">&lt; Back</a></p>
   </body>
 </html>

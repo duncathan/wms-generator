@@ -17,7 +17,7 @@ if(!Array.prototype.indexOf) {
 				return i;
 			}
 		}
-		
+
 		return -1;
 	}
 }
@@ -41,12 +41,12 @@ function $(id) {
  */
 function prettyMailString(mailString, rows, middleColumnSize) {
 	mailString = WMSParser.sanitize(mailString);
-	
+
 	// If our mailString is 18 bytes and the middle column is 5 bytes with 2 rows, we'll have 8 bytes left for the rest.
 	// There'll be 2 columns for 2 rows each = 8/2/2 = 2 bytes.
 	//                    (18                - (2 * 5))                   / (2 * 2)    = 2
 	var outerColumnSize = (mailString.length - (rows * middleColumnSize)) / (rows * 2);
-	
+
 	var prettyString = "";
 	var stringPtr = 0;
 	for(var row = 0; row < rows; row++) {
@@ -102,7 +102,7 @@ function getMonName(monId) {
 	if(female) {
 		monId -= 600;
 	}
-		
+
 	if(WMSkyPoke[monId]) {
 		// (female ? "[F]" : "[M]") +
 		return WMSkyPoke[monId];
@@ -110,4 +110,49 @@ function getMonName(monId) {
 	else {
 		return "Unknown";
 	}
+}
+
+// simple filter with regex system
+function add_filter(select_id, placeholder, insert_before) {
+
+	// set default values
+	placeholder = typeof placeholder !== 'undefined' ? placeholder : "Filter...";
+
+	// get the select tag
+	var select_tag;
+	if(typeof select_id === 'string') {
+		select_tag = document.getElementById(select_id);
+	} else {
+		select_tag = select_id;
+	}
+
+	// create a simple input and insert just before the select tag
+	var searchInput = document.createElement('input');
+	searchInput.placeholder=placeholder;
+	searchInput.id = select_tag.id + "Filter";
+	searchInput.className = "filterBox";
+	searchInput.type = "text";
+
+	insert_before = typeof insert_before !== 'undefined' ? insert_before : select_tag;
+	insert_before.parentElement.insertBefore(searchInput, insert_before);
+
+	// add an event listener to any key pressed
+	searchInput.addEventListener("keyup", function (e) {
+		var text = e.target.value;
+		var options = select_tag.options;
+		for (var i = 0; i < options.length; i++) {
+			var option = options[i];
+			var optionText = option.text;
+			// lowercase comparison for case-insensitivity
+			var lowerOptionText = optionText.toLowerCase();
+			var lowerText = text.toLowerCase();
+			var regex = new RegExp("^" + text, "i");
+			var match = optionText.match(regex);
+			var contains = lowerOptionText.indexOf(lowerText) != -1;
+
+			// enabled / disbaled option matched to text
+			option.disabled = match || contains ? false: true ;
+			option.hidden = option.disabled;
+		}
+	});
 }
