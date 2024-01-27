@@ -218,7 +218,16 @@
             })
           );
 
-          $("outputbox").value = codes[0].code;
+          var segments = codes[0].code.replace("\n", " ").split(" ");
+          var code = "";
+          code += segments[0];
+          code += " <span class='yellow'>" + segments[1] + "</span> ";
+          code += segments[2];
+          code += "<br>";
+          code += segments[3];
+          code += " <span class='yellow'>" + segments[4] + "</span> ";
+          code += segments[5];
+          $("outputbox").innerHTML = code;
 
           // See how many people are actually using this thing...
           if (
@@ -236,7 +245,7 @@
           for (var i = 0; i < errors.length; ++i) {
             errorStr += " * " + errors[i] + "\n";
           }
-          $("outputbox").value = errorStr;
+          $("outputbox").innerHTML = errorStr;
         }
       }
     </script>
@@ -399,7 +408,7 @@
 
     <fieldset>
       <legend>Generated code</legend>
-      <textarea id="outputbox" rows="3" cols="60" readonly="readonly"></textarea>
+      <div id="outputbox"></div>
       <p>Check your console for more codes! (ctrl+shift+i usually)</p>
     </fieldset>
 

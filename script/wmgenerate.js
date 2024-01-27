@@ -686,7 +686,7 @@ WMSGen = {
 	 * @FIXME Needs rewrite and a lot of things really
 	 */
 	"setError": function(text) {
-		$('outputbox').value = text;
+		$('outputbox').innerHTML = text;
 	}
 };
 

@@ -51,10 +51,21 @@ h1 {
 	margin: 8px 0 8px 0;
 }
 
-/* Force textareas to be monospace so that the resulting codes are readable */
-textarea {
+#outputbox {
 	font-family: var(--mono-font);
 	vertical-align: middle;
+	background-color: var(--text);
+	color: white;
+	border: 1px solid var(--border);
+	border-radius: var(--standard-border-radius);
+	margin-bottom: 1rem;
+	min-height: 4.5rem;
+	padding: 0.5rem;
+	text-align: center;
+}
+
+.yellow {
+	color: yellow;
 }
 
 @media only screen and (min-width: 721px) {
